@@ -1,8 +1,8 @@
 # FairLend Mobile — Progress Tracker
 
 > **Last Updated:** 2026-02-13
-> **Current Phase:** Phase 2 — Protocol Service Layer (complete)
-> **Next Milestone:** Phase 3 — Markets Explorer
+> **Current Phase:** Phase 4 — Portfolio Dashboard (complete)
+> **Next Milestone:** Phase 5 — Deposit & Borrow Flows
 > **Deadline:** Fairathon — March 15, 2026
 
 ---
@@ -37,6 +37,17 @@
 | Wire up aggregator with real services | 2026-02-13 | Promise.all with safeProtocolFetch, getBestSupplyRate/getBestBorrowRate |
 | Update types.ts + constants.ts for Phase 2 | 2026-02-13 | Added TOKEN_MINTS, DEFI_LLAMA_PROJECTS, assetDecimals, totalSupplyUSD |
 | Phase 2 TypeScript check passes | 2026-02-13 | `tsc --noEmit` — 0 errors |
+| Create useMarkets hook | 2026-02-13 | TanStack Query wrapper for fetchAllMarkets |
+| Create MarketCard + MarketSkeleton components | 2026-02-13 | Protocol badge, asset, supply/borrow APY, TVL |
+| Build Markets screen with search, sort, filter | 2026-02-13 | FlatList, protocol filter pills, sort by APY/TVL, search |
+| Create Market Detail screen | 2026-02-13 | app/market/[id].tsx — APY, LTV, utilization, Deposit/Borrow buttons |
+| Update Home screen with top rates | 2026-02-13 | Top 5 supply rates, wallet summary card, View All link |
+| Phase 3 TypeScript check passes | 2026-02-13 | `tsc --noEmit` — 0 errors |
+| Create usePortfolio hook | 2026-02-13 | TanStack Query, computes netWorth/totalDeposited/totalBorrowed |
+| Create PositionCard component | 2026-02-13 | Asset, amount, APY, USD value, health factor with color |
+| Build Portfolio screen | 2026-02-13 | Summary cards, positions grouped by type, empty state, pull-to-refresh |
+| Wire Home screen with portfolio totals | 2026-02-13 | Net Worth, Deposited, Borrowed from usePortfolio, tappable to portfolio |
+| Phase 4 TypeScript check passes | 2026-02-13 | `tsc --noEmit` — 0 errors |
 
 ---
 
@@ -67,29 +78,31 @@
 - [ ] Test all services with mainnet connections (runtime test in Phase 3)
 
 ### Phase 3: Markets Explorer
-- [ ] Create Markets screen with FlatList
-- [ ] Create MarketCard component (protocol badge, asset, APY, liquidity)
-- [ ] Implement useMarkets hook (aggregates all 3 protocols)
-- [ ] Add sort functionality (Supply APY, Borrow APY, Liquidity)
-- [ ] Add filter bar (by protocol, by asset)
-- [ ] Add search by asset name
-- [ ] Add pull-to-refresh
-- [ ] Add loading skeletons
-- [ ] Create Market Detail screen
-- [ ] Show APY, LTV, utilization, total supply/borrow on detail screen
-- [ ] Add "Deposit" and "Borrow" buttons on detail screen
+- [x] Create Markets screen with FlatList
+- [x] Create MarketCard component (protocol badge, asset, APY, liquidity)
+- [x] Implement useMarkets hook (aggregates all 3 protocols via TanStack Query)
+- [x] Add sort functionality (Supply APY, Borrow APY, TVL)
+- [x] Add filter bar (by protocol: All, Kamino, Save, marginfi)
+- [x] Add search by asset name
+- [x] Add pull-to-refresh
+- [x] Add loading skeletons (MarketSkeleton component)
+- [x] Create Market Detail screen (app/market/[id].tsx)
+- [x] Show APY, LTV, utilization, total supply/borrow on detail screen
+- [x] Add "Deposit" and "Borrow" buttons on detail screen
+- [x] Update Home screen with top 5 supply rates
 
 ### Phase 4: Portfolio Dashboard
-- [ ] Create Dashboard/Home screen
-- [ ] Create summary cards (Total Deposited, Total Borrowed, Net Worth)
-- [ ] Create PositionCard component
-- [ ] Implement usePortfolio hook (fetches positions from all protocols)
-- [ ] Group positions by protocol with section headers
-- [ ] Show per-position: asset, amount, APY, USD value
-- [ ] Show health factor for borrow positions
-- [ ] Add quick action buttons: Withdraw, Repay
-- [ ] Add pull-to-refresh
-- [ ] Empty state for new users
+- [x] Create usePortfolio hook (TanStack Query, computes totals)
+- [x] Create summary cards (Net Worth, Total Deposited, Total Borrowed)
+- [x] Create PositionCard component (asset, amount, APY, USD, health factor)
+- [x] Implement usePortfolio hook (fetches positions from aggregator)
+- [x] Group positions by type (Deposits / Borrows sections)
+- [x] Show per-position: asset, amount, APY, USD value
+- [x] Show health factor for borrow positions (color-coded)
+- [x] Add pull-to-refresh
+- [x] Empty state with "Browse Markets" CTA
+- [x] Wire Home screen summary card with real portfolio totals
+- [ ] On-chain position reads (requires SDK integration — deferred to Phase 5)
 
 ### Phase 5: Deposit & Borrow Flows
 - [ ] Create Deposit screen with amount input and "MAX" button
