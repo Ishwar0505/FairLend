@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { formatUSD } from '@/lib/utils';
@@ -9,9 +9,10 @@ import type { UnifiedPosition } from '@/lib/types';
 interface PositionCardProps {
   position: UnifiedPosition;
   onPress?: () => void;
+  onAction?: () => void;
 }
 
-export function PositionCard({ position, onPress }: PositionCardProps) {
+export function PositionCard({ position, onPress, onAction }: PositionCardProps) {
   const display = PROTOCOL_DISPLAY[position.protocol];
   const isDeposit = position.type === 'deposit';
 
@@ -58,6 +59,24 @@ export function PositionCard({ position, onPress }: PositionCardProps) {
           )}
         </View>
       </View>
+
+      {/* Quick action button */}
+      {onAction && (
+        <Pressable
+          onPress={onAction}
+          className={`mt-3 py-2 rounded-xl items-center ${
+            isDeposit ? 'bg-surface-lighter' : 'bg-warning/10'
+          }`}
+        >
+          <Text
+            className={`text-xs font-semibold ${
+              isDeposit ? 'text-white' : 'text-warning'
+            }`}
+          >
+            {isDeposit ? 'Withdraw' : 'Repay'}
+          </Text>
+        </Pressable>
+      )}
     </Card>
   );
 }

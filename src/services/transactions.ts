@@ -30,13 +30,35 @@ export async function executeBorrow(
   return executeProtocolAction(action, 'borrow', onStatus);
 }
 
+/**
+ * Execute a withdraw action against the appropriate protocol.
+ */
+export async function executeWithdraw(
+  action: UnifiedAction,
+  _walletAddress: string,
+  onStatus: (status: TxStatus) => void,
+): Promise<TransactionResult> {
+  return executeProtocolAction(action, 'withdraw', onStatus);
+}
+
+/**
+ * Execute a repay action against the appropriate protocol.
+ */
+export async function executeRepay(
+  action: UnifiedAction,
+  _walletAddress: string,
+  onStatus: (status: TxStatus) => void,
+): Promise<TransactionResult> {
+  return executeProtocolAction(action, 'repay', onStatus);
+}
+
 // ---------------------------------------------------------------------------
 // Internal: per-protocol routing
 // ---------------------------------------------------------------------------
 
 async function executeProtocolAction(
   action: UnifiedAction,
-  actionType: 'deposit' | 'borrow',
+  actionType: 'deposit' | 'borrow' | 'withdraw' | 'repay',
   onStatus: (status: TxStatus) => void,
 ): Promise<TransactionResult> {
   try {

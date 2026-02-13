@@ -8,6 +8,7 @@ import { PositionCard } from '@/components/portfolio/PositionCard';
 import { WalletButton } from '@/components/wallet/WalletButton';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { formatUSD } from '@/lib/utils';
+import type { UnifiedPosition } from '@/lib/types';
 
 function SummaryCard({
   label,
@@ -28,9 +29,24 @@ function SummaryCard({
   );
 }
 
+function usePositionAction(router: ReturnType<typeof useRouter>) {
+  return (position: UnifiedPosition) => {
+    const route = position.type === 'deposit' ? '/withdraw/[protocol]' : '/repay/[protocol]';
+    router.push({
+      pathname: route,
+      params: {
+        protocol: position.protocol,
+        marketId: position.id,
+        positionAmount: position.amount.toString(),
+      },
+    });
+  };
+}
+
 export default function PortfolioScreen() {
   const router = useRouter();
   const { connected } = useWallet();
+  const handleAction = usePositionAction(router);
   const {
     positions,
     deposits,
@@ -154,7 +170,11 @@ export default function PortfolioScreen() {
                     Deposits ({deposits.length})
                   </Text>
                   {deposits.map((position) => (
-                    <PositionCard key={position.id} position={position} />
+                    <PositionCard
+                      key={position.id}
+                      position={position}
+                      onAction={() => handleAction(position)}
+                    />
                   ))}
                 </View>
               )}
@@ -166,7 +186,11 @@ export default function PortfolioScreen() {
                     Borrows ({borrows.length})
                   </Text>
                   {borrows.map((position) => (
-                    <PositionCard key={position.id} position={position} />
+                    <PositionCard
+                      key={position.id}
+                      position={position}
+                      onAction={() => handleAction(position)}
+                    />
                   ))}
                 </View>
               )}

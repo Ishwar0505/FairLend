@@ -146,7 +146,7 @@ export default function MarketDetailScreen() {
         </View>
 
         {/* Action buttons */}
-        <View className="px-4 mt-6 mb-8 gap-3">
+        <View className="px-4 mt-6 gap-3">
           <Button
             title="Deposit"
             onPress={() =>
@@ -168,6 +168,38 @@ export default function MarketDetailScreen() {
             variant="secondary"
             size="lg"
           />
+        </View>
+
+        {/* Manage position buttons */}
+        <View className="px-4 mt-3 mb-8 gap-3">
+          <View className="flex-row gap-3">
+            <View className="flex-1">
+              <Button
+                title="Withdraw"
+                onPress={() =>
+                  router.push({
+                    pathname: '/withdraw/[protocol]',
+                    params: { protocol: market.protocol, marketId: market.id },
+                  })
+                }
+                variant="ghost"
+                size="md"
+              />
+            </View>
+            <View className="flex-1">
+              <Button
+                title="Repay"
+                onPress={() =>
+                  router.push({
+                    pathname: '/repay/[protocol]',
+                    params: { protocol: market.protocol, marketId: market.id },
+                  })
+                }
+                variant="ghost"
+                size="md"
+              />
+            </View>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>

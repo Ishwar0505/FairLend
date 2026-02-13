@@ -1,8 +1,8 @@
 # FairLend Mobile — Progress Tracker
 
 > **Last Updated:** 2026-02-13
-> **Current Phase:** Phase 5 — Deposit & Borrow Flows (complete)
-> **Next Milestone:** Phase 6 — Withdraw & Repay Flows
+> **Current Phase:** Phase 6 — Withdraw & Repay Flows (complete)
+> **Next Milestone:** Phase 7 — Rate Comparison & Polish
 > **Deadline:** Fairathon — March 15, 2026
 
 ---
@@ -55,6 +55,14 @@
 | Build Borrow screen (app/borrow/[protocol].tsx) | 2026-02-13 | Amount input, health factor bar+color, danger warning, interest cost, confirmation |
 | Wire Market Detail → Deposit/Borrow with marketId | 2026-02-13 | Buttons now pass marketId param to deposit/borrow routes |
 | Phase 5 TypeScript check passes | 2026-02-13 | `tsc --noEmit` — 0 errors |
+| Add executeWithdraw + executeRepay to transaction service | 2026-02-13 | Extends per-protocol routing for all 4 action types |
+| Create useWithdraw hook | 2026-02-13 | Amount state, remaining position preview, lost daily earnings, MAX button |
+| Create useRepay hook | 2026-02-13 | Amount state, remaining debt, full-repay detection, health factor improvement |
+| Build Withdraw screen (app/withdraw/[protocol].tsx) | 2026-02-13 | Current position display, MAX button, withdrawal preview, confirmation |
+| Build Repay screen (app/repay/[protocol].tsx) | 2026-02-13 | Outstanding debt display, REPAY ALL button, HF improvement preview |
+| Add Withdraw/Repay actions to PositionCard + Portfolio | 2026-02-13 | Quick action button on each position, navigates to withdraw/repay |
+| Add Withdraw/Repay buttons to Market Detail screen | 2026-02-13 | Ghost-style buttons below Deposit/Borrow |
+| Phase 6 TypeScript check passes | 2026-02-13 | `tsc --noEmit` — 0 errors |
 
 ---
 
@@ -128,11 +136,16 @@
 - [ ] Implement MAX button (requires on-chain wallet token balance reads)
 
 ### Phase 6: Withdraw & Repay Flows
-- [ ] Create Withdraw screen
-- [ ] Create Repay screen with "Repay All" option
-- [ ] Health factor preview for repayment
-- [ ] Build and send transactions
-- [ ] Confirmation screens
+- [x] Add executeWithdraw + executeRepay to transaction service
+- [x] Create useWithdraw hook (amount, remaining position, lost earnings, MAX)
+- [x] Create useRepay hook (amount, remaining debt, full-repay detection, HF improvement)
+- [x] Create Withdraw screen with current position, MAX button, preview
+- [x] Create Repay screen with "Repay All" button, HF improvement preview
+- [x] Health factor preview for repayment (color-coded improvement)
+- [x] Confirmation screens for both withdraw and repay
+- [x] Add quick Withdraw/Repay action buttons to PositionCard
+- [x] Wire Portfolio screen to navigate to withdraw/repay from positions
+- [x] Add Withdraw/Repay ghost buttons to Market Detail screen
 
 ### Phase 7: Rate Comparison & Polish
 - [ ] Create Compare screen (side-by-side protocol rates)
