@@ -152,7 +152,7 @@ export default function MarketDetailScreen() {
             onPress={() =>
               router.push({
                 pathname: '/deposit/[protocol]',
-                params: { protocol: market.protocol },
+                params: { protocol: market.protocol, marketId: market.id },
               })
             }
             size="lg"
@@ -162,7 +162,7 @@ export default function MarketDetailScreen() {
             onPress={() =>
               router.push({
                 pathname: '/borrow/[protocol]',
-                params: { protocol: market.protocol },
+                params: { protocol: market.protocol, marketId: market.id },
               })
             }
             variant="secondary"

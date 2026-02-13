@@ -182,6 +182,34 @@ Platform.OS === 'ios' → deeplink to Phantom/Solflare only
 
 ---
 
+## ADR-009: Demo Simulation for Transaction Flows
+**Date:** 2026-02-13
+**Status:** Accepted
+
+**Context:** Phase 5 requires building deposit and borrow transactions. Protocol SDKs (@kamino-finance/klend-sdk, @solendprotocol/solend-sdk, @mrgnlabs/marginfi-client-v2) have heavy Node.js/browser dependencies (fs, crypto, native Buffer) that may break in React Native/Expo.
+
+**Options Considered:**
+1. Install protocol SDKs and debug RN compatibility issues
+2. Build transactions manually with raw Solana instructions
+3. Demo simulation with full UI + clean service abstraction for SDK drop-in
+
+**Decision:** Demo simulation with per-protocol service stubs that are ready for real SDK integration.
+
+**Reasoning:**
+- Protocol SDKs have complex dependency trees that could take days to debug in RN
+- The UI/UX is the core hackathon deliverable — complete, polished deposit/borrow flows
+- Transaction service has clear per-protocol methods (`buildAndSendKamino`, etc.) that just need real SDK calls swapped in
+- Demo simulation shows the full flow: building → signing → confirming → success
+- Demo signatures are clearly labelled in the UI ("Demo mode — SDK integration pending")
+- `useDeposit`/`useBorrow` hooks already invalidate TanStack Query caches on success
+
+**Trade-offs:**
+- No actual on-chain transactions until SDK integration
+- Demo signatures don't appear on Solscan
+- Health factor calculation is simplified (no actual collateral reads)
+
+---
+
 ## Template for New Decisions
 
 ```

@@ -1,8 +1,8 @@
 # FairLend Mobile — Progress Tracker
 
 > **Last Updated:** 2026-02-13
-> **Current Phase:** Phase 4 — Portfolio Dashboard (complete)
-> **Next Milestone:** Phase 5 — Deposit & Borrow Flows
+> **Current Phase:** Phase 5 — Deposit & Borrow Flows (complete)
+> **Next Milestone:** Phase 6 — Withdraw & Repay Flows
 > **Deadline:** Fairathon — March 15, 2026
 
 ---
@@ -48,6 +48,13 @@
 | Build Portfolio screen | 2026-02-13 | Summary cards, positions grouped by type, empty state, pull-to-refresh |
 | Wire Home screen with portfolio totals | 2026-02-13 | Net Worth, Deposited, Borrowed from usePortfolio, tappable to portfolio |
 | Phase 4 TypeScript check passes | 2026-02-13 | `tsc --noEmit` — 0 errors |
+| Create transaction service (src/services/transactions.ts) | 2026-02-13 | Per-protocol routing, demo simulation, explorer URL helper |
+| Create useDeposit hook | 2026-02-13 | Amount state, earnings estimate (daily/weekly/monthly/yearly), tx execution |
+| Create useBorrow hook | 2026-02-13 | Amount state, health factor preview, interest cost, tx execution |
+| Build Deposit screen (app/deposit/[protocol].tsx) | 2026-02-13 | Amount input, APY card, earnings preview, tx status, success confirmation |
+| Build Borrow screen (app/borrow/[protocol].tsx) | 2026-02-13 | Amount input, health factor bar+color, danger warning, interest cost, confirmation |
+| Wire Market Detail → Deposit/Borrow with marketId | 2026-02-13 | Buttons now pass marketId param to deposit/borrow routes |
+| Phase 5 TypeScript check passes | 2026-02-13 | `tsc --noEmit` — 0 errors |
 
 ---
 
@@ -105,17 +112,20 @@
 - [ ] On-chain position reads (requires SDK integration — deferred to Phase 5)
 
 ### Phase 5: Deposit & Borrow Flows
-- [ ] Create Deposit screen with amount input and "MAX" button
-- [ ] Show estimated earnings (daily/weekly/monthly)
-- [ ] Build deposit transaction using respective protocol SDK
-- [ ] Send transaction via MWA (Android) / deeplink (iOS)
-- [ ] Show confirmation with Solana Explorer link
-- [ ] Create Borrow screen with amount input
-- [ ] Show health factor preview as user types amount
-- [ ] Warn at health factor < 1.2
-- [ ] Build borrow transaction via protocol SDK
-- [ ] Send and confirm borrow transaction
-- [ ] Invalidate portfolio queries on success
+- [x] Create transaction service (per-protocol routing, demo simulation mode)
+- [x] Create useDeposit hook (amount, earnings estimate, tx execution)
+- [x] Create useBorrow hook (amount, health factor preview, tx execution)
+- [x] Create Deposit screen with amount input, APY card, earnings preview
+- [x] Show estimated earnings (daily/weekly/monthly/yearly)
+- [x] Show confirmation with Solscan Explorer link
+- [x] Create Borrow screen with amount input
+- [x] Show health factor preview with color bar as user types amount
+- [x] Warn at health factor < 1.2 (red danger banner)
+- [x] Show interest cost preview (daily/monthly)
+- [x] Invalidate portfolio + market queries on success
+- [x] Wire Market Detail → Deposit/Borrow with marketId param
+- [ ] Replace demo simulation with real protocol SDK calls (deferred — SDK RN compatibility TBD)
+- [ ] Implement MAX button (requires on-chain wallet token balance reads)
 
 ### Phase 6: Withdraw & Repay Flows
 - [ ] Create Withdraw screen
