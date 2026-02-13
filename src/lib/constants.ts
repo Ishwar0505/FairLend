@@ -27,3 +27,23 @@ export const PROTOCOL_DISPLAY: Record<ProtocolId, { name: string; color: string 
 };
 
 export const EXPLORER_URL = 'https://solscan.io';
+
+// Common Solana token mints
+export const TOKEN_MINTS: Record<string, { symbol: string; decimals: number; coingeckoId: string }> = {
+  'So11111111111111111111111111111111111111112': { symbol: 'SOL', decimals: 9, coingeckoId: 'solana' },
+  'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v': { symbol: 'USDC', decimals: 6, coingeckoId: 'usd-coin' },
+  'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB': { symbol: 'USDT', decimals: 6, coingeckoId: 'tether' },
+  'mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So': { symbol: 'mSOL', decimals: 9, coingeckoId: 'msol' },
+  '7dHbWXmci3dT8UFYWYZweBLXgycu7Y3iL6trKn1Y7ARj': { symbol: 'stSOL', decimals: 9, coingeckoId: 'lido-staked-sol' },
+  'J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn': { symbol: 'JitoSOL', decimals: 9, coingeckoId: 'jito-staked-sol' },
+  'bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1': { symbol: 'bSOL', decimals: 9, coingeckoId: 'blazestake-staked-sol' },
+  '7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs': { symbol: 'ETH', decimals: 8, coingeckoId: 'ethereum' },
+  '3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh': { symbol: 'wBTC', decimals: 8, coingeckoId: 'bitcoin' },
+};
+
+// DeFi Llama project identifiers
+export const DEFI_LLAMA_PROJECTS: Record<ProtocolId, string> = {
+  kamino: 'kamino-lend',
+  solend: 'save',        // Solend rebranded to "Save" — DeFi Llama uses 'save'
+  marginfi: 'marginfi',  // Not currently in DeFi Llama yields API
+};

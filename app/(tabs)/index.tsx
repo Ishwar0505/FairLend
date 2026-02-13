@@ -1,28 +1,32 @@
 import { View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useWalletStore } from '@/stores/walletStore';
+import { useWallet } from '@/hooks/useWallet';
+import { WalletButton } from '@/components/wallet/WalletButton';
 import { truncateAddress } from '@/lib/utils';
 
 export default function HomeScreen() {
-  const { connected, publicKey } = useWalletStore();
+  const { connected, address } = useWallet();
 
   return (
     <SafeAreaView className="flex-1 bg-surface">
-      <View className="px-4 pt-4 pb-2">
-        <Text className="text-2xl font-bold text-white">FairLend</Text>
-        <Text className="text-sm text-slate-400 mt-1">
-          Solana Lending Aggregator
-        </Text>
+      <View className="px-4 pt-4 pb-2 flex-row items-center justify-between">
+        <View>
+          <Text className="text-2xl font-bold text-white">FairLend</Text>
+          <Text className="text-sm text-slate-400 mt-1">
+            Solana Lending Aggregator
+          </Text>
+        </View>
+        <WalletButton />
       </View>
 
       <View className="flex-1 items-center justify-center px-6">
-        {connected && publicKey ? (
+        {connected && address ? (
           <View className="items-center">
             <Text className="text-lg text-white font-semibold">
               Welcome back
             </Text>
             <Text className="text-sm text-primary-400 mt-1">
-              {truncateAddress(publicKey)}
+              {truncateAddress(address)}
             </Text>
             <View className="mt-8 w-full">
               <View className="bg-surface-light rounded-2xl p-6 items-center">

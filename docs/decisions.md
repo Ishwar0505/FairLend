@@ -148,6 +148,40 @@ Platform.OS === 'ios' → deeplink to Phantom/Solflare only
 
 ---
 
+## ADR-008: REST APIs over Protocol SDKs for Market Data
+**Date:** 2026-02-13
+**Status:** Accepted
+
+**Context:** How should we fetch lending market data (APYs, TVL, utilization) from the three protocols?
+
+**Options Considered:**
+1. Native protocol SDKs (`@kamino-finance/klend-sdk`, `@solendprotocol/solend-sdk`, `@mrgnlabs/marginfi-client-v2`)
+2. REST APIs (protocol-specific + DeFi Llama as fallback)
+3. Direct Solana RPC account reads
+
+**Decision:** Use REST APIs for reading market data. Protocol SDKs deferred to Phase 5 (transaction building).
+
+**Reasoning:**
+- Protocol SDKs have Node.js/browser dependencies (fs, crypto, native modules) that may break in React Native
+- REST APIs are simpler, more reliable in RN, and sufficient for read-only data
+- Kamino has a clean REST API (`api.kamino.finance`) with all needed data in one call
+- Save/Solend data available via DeFi Llama yields API (project = "save")
+- marginfi has NO public REST API and is absent from DeFi Llama yields — returns empty for Phase 2
+- SDKs will only be evaluated in Phase 5 when we need to build transactions
+
+**Data Sources:**
+- **Kamino:** `https://api.kamino.finance/kamino-market/{market}/reserves/metrics`
+- **Save/Solend:** DeFi Llama `/pools` + `/lendBorrow` (project = "save", chain = "Solana")
+- **marginfi:** Deferred (no REST API, not in DeFi Llama)
+- **Prices:** CoinGecko free API
+
+**Trade-offs:**
+- marginfi integration deferred — only 2 of 3 protocols have live data
+- DeFi Llama data for Solend may be slightly delayed vs direct API
+- No position (obligation) data from REST APIs — on-chain reads needed in Phase 4
+
+---
+
 ## Template for New Decisions
 
 ```

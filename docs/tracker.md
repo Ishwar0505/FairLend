@@ -1,8 +1,8 @@
 # FairLend Mobile — Progress Tracker
 
 > **Last Updated:** 2026-02-13
-> **Current Phase:** Phase 1 — Project Scaffold & Wallet (in progress)
-> **Next Milestone:** Phase 2 — Protocol Service Layer
+> **Current Phase:** Phase 2 — Protocol Service Layer (complete)
+> **Next Milestone:** Phase 3 — Markets Explorer
 > **Deadline:** Fairathon — March 15, 2026
 
 ---
@@ -23,6 +23,20 @@
 | Set up env vars and constants | 2026-02-13 | .env, constants.ts, types.ts, utils.ts |
 | Create service stubs (Kamino, Solend, marginfi, aggregator) | 2026-02-13 | Placeholder files, architecture ready |
 | TypeScript compiles with 0 errors | 2026-02-13 | `tsc --noEmit` passes clean |
+| Implement MWA wallet connection (Android) | 2026-02-13 | src/services/wallet/mwa.ts — authorize, reauthorize, signAndSend, signMessage |
+| Implement Phantom deeplink fallback (iOS) | 2026-02-13 | src/services/wallet/phantom.ts — nacl encryption, deeplink connect/callback |
+| Create useWallet hook | 2026-02-13 | src/hooks/useWallet.ts — platform-aware connect/disconnect/signAndSend |
+| Create WalletButton component | 2026-02-13 | src/components/wallet/WalletButton.tsx — integrated into Home screen header |
+| Update wallet store (align with skill pattern) | 2026-02-13 | Added balance field, renamed to address/setConnected/setDisconnected |
+| Phase 1 TypeScript check passes | 2026-02-13 | `tsc --noEmit` — 0 errors |
+| Create Kamino service (REST API) | 2026-02-13 | api.kamino.finance — reserves/metrics, supply+borrow APY, LTV, TVL |
+| Create Save/Solend service (DeFi Llama) | 2026-02-13 | DeFi Llama pools+lendBorrow, project="save", 67 Solana pools |
+| Create marginfi service (stub) | 2026-02-13 | No REST API or DeFi Llama data — returns empty, SDK deferred to Phase 5 |
+| Create price service (CoinGecko) | 2026-02-13 | Free API, 9 tokens, mint→USD price map |
+| Create error handling (safeProtocolFetch) | 2026-02-13 | src/services/errors.ts — ProtocolError class + safe wrapper |
+| Wire up aggregator with real services | 2026-02-13 | Promise.all with safeProtocolFetch, getBestSupplyRate/getBestBorrowRate |
+| Update types.ts + constants.ts for Phase 2 | 2026-02-13 | Added TOKEN_MINTS, DEFI_LLAMA_PROJECTS, assetDecimals, totalSupplyUSD |
+| Phase 2 TypeScript check passes | 2026-02-13 | `tsc --noEmit` — 0 errors |
 
 ---
 
@@ -30,29 +44,27 @@
 
 | Task | Started | Blockers |
 |---|---|---|
-| Implement MWA wallet connection (Android) | — | Next up |
-| Implement Phantom deeplink fallback (iOS) | — | Next up |
-| Create WalletButton component | — | Next up |
+| — | — | — |
 
 ---
 
 ## TODO 📋
 
 ### Phase 1: Project Scaffold & Wallet Connection (remaining)
-- [ ] Implement MWA wallet connection (Android)
-- [ ] Implement Phantom deeplink fallback (iOS)
-- [ ] Create WalletButton component (connect/disconnect/address display)
+- [x] Implement MWA wallet connection (Android)
+- [x] Implement Phantom deeplink fallback (iOS)
+- [x] Create WalletButton component (connect/disconnect/address display)
 - [ ] Test wallet connection on Android emulator with Phantom
 
 ### Phase 2: Protocol Service Layer
-- [ ] Create Kamino service: initialize market, fetch reserves, fetch obligations
-- [ ] Create Solend service: initialize market, load reserves, fetch obligations
-- [ ] Create marginfi service: initialize client, fetch banks, fetch accounts
-- [ ] Create aggregator service: normalize data into UnifiedMarket + UnifiedPosition
-- [ ] Create price service: fetch USD prices via CoinGecko/Pyth
+- [x] Create Kamino service (REST API — api.kamino.finance)
+- [x] Create Save/Solend service (DeFi Llama — project="save")
+- [x] Create marginfi service (stub — no REST API, SDK deferred to Phase 5)
+- [x] Wire up aggregator with real services (Promise.all + safeProtocolFetch)
+- [x] Create price service (CoinGecko free API)
 - [x] Create utility helpers: formatAmount, formatAPY, formatUSD, truncateAddress (done in Phase 1)
-- [ ] Add error handling with protocol-specific error parsing
-- [ ] Test all services with devnet/mainnet connections
+- [x] Add error handling (ProtocolError class + safeProtocolFetch wrapper)
+- [ ] Test all services with mainnet connections (runtime test in Phase 3)
 
 ### Phase 3: Markets Explorer
 - [ ] Create Markets screen with FlatList

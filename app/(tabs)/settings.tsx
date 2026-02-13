@@ -6,7 +6,7 @@ import { truncateAddress } from '@/lib/utils';
 
 export default function SettingsScreen() {
   const { network, setNetwork, theme, setTheme } = useSettingsStore();
-  const { connected, publicKey, disconnect } = useWalletStore();
+  const { connected, address, setDisconnected } = useWalletStore();
 
   return (
     <SafeAreaView className="flex-1 bg-surface">
@@ -20,16 +20,16 @@ export default function SettingsScreen() {
           <Text className="text-xs text-slate-400 font-semibold uppercase tracking-wide mb-3">
             Wallet
           </Text>
-          {connected && publicKey ? (
+          {connected && address ? (
             <View className="flex-row items-center justify-between">
               <View>
                 <Text className="text-white font-medium">Connected</Text>
                 <Text className="text-sm text-primary-400 mt-0.5">
-                  {truncateAddress(publicKey)}
+                  {truncateAddress(address)}
                 </Text>
               </View>
               <Pressable
-                onPress={disconnect}
+                onPress={setDisconnected}
                 className="bg-danger/20 px-4 py-2 rounded-xl"
               >
                 <Text className="text-danger font-medium text-sm">

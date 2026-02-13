@@ -5,13 +5,17 @@ export interface UnifiedMarket {
   protocol: ProtocolId;
   asset: string;
   assetMint: string;
-  supplyAPY: number;
+  assetDecimals: number;
+  assetIcon?: string;
+  supplyAPY: number;             // As percentage: 5.25 means 5.25%
   borrowAPY: number;
-  totalSupply: number;
+  totalSupply: number;           // Human-readable (not lamports)
+  totalSupplyUSD: number;
   totalBorrow: number;
-  utilization: number;
-  ltv: number;
-  liquidationThreshold: number;
+  totalBorrowUSD: number;
+  utilization: number;           // 0 to 1
+  ltv: number;                   // 0 to 1
+  liquidationThreshold: number;  // 0 to 1
   protocolName: string;
   protocolColor: string;
   reserveAddress: string;
@@ -41,8 +45,15 @@ export interface UnifiedAction {
 
 export interface WalletState {
   connected: boolean;
-  publicKey: string | null;
+  address: string | null;
   authToken: string | null;
+  balance: number;
+}
+
+export interface TransactionResult {
+  success: boolean;
+  signature?: string;
+  error?: string;
 }
 
 export interface PriceData {

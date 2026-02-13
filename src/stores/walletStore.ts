@@ -6,15 +6,17 @@ import type { ProtocolId } from '@/lib/constants';
 interface WalletStore {
   // Connection state
   connected: boolean;
-  publicKey: string | null;
+  address: string | null;
   authToken: string | null;
+  balance: number; // SOL balance in lamports
 
   // Preferences
   preferredProtocol: ProtocolId | null;
 
   // Actions
-  connect: (publicKey: string, authToken?: string) => void;
-  disconnect: () => void;
+  setConnected: (address: string, authToken?: string) => void;
+  setDisconnected: () => void;
+  setBalance: (balance: number) => void;
   setAuthToken: (token: string) => void;
   setPreferredProtocol: (protocol: ProtocolId) => void;
 }
@@ -23,23 +25,28 @@ export const useWalletStore = create<WalletStore>()(
   persist(
     (set) => ({
       connected: false,
-      publicKey: null,
+      address: null,
       authToken: null,
+      balance: 0,
       preferredProtocol: null,
 
-      connect: (publicKey: string, authToken?: string) =>
+      setConnected: (address: string, authToken?: string) =>
         set({
           connected: true,
-          publicKey,
+          address,
           authToken: authToken ?? null,
         }),
 
-      disconnect: () =>
+      setDisconnected: () =>
         set({
           connected: false,
-          publicKey: null,
+          address: null,
           authToken: null,
+          balance: 0,
         }),
+
+      setBalance: (balance: number) =>
+        set({ balance }),
 
       setAuthToken: (token: string) =>
         set({ authToken: token }),
